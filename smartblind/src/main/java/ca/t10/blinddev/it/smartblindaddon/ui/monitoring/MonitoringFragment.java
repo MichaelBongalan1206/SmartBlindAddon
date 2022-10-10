@@ -104,6 +104,9 @@ public class MonitoringFragment extends Fragment {
         lighttextView =  view.findViewById(R.id.progresstextView);
         lightprogressBar = view.findViewById(R.id.lightprogressBar);
         lightseekBar = view.findViewById(R.id.lightseekBar);
+
+
+
         if (sharedPreferences.getBoolean("dark",true)){
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_style, locationKey);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -138,6 +141,9 @@ public class MonitoringFragment extends Fragment {
                 }
             }
         });
+
+
+
         blindsspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -202,9 +208,11 @@ public class MonitoringFragment extends Fragment {
                 String blindkey = String.valueOf(blindsspinner.getSelectedItem());
                 dRef =firebaseDatabase.getReference(blindkey);
                 DatabaseReference tempRef =  dRef.child("UTemp");
+
 // creating string holders
                 String maxTemp = maxET.getText().toString();
                 String minTemp = minET.getText().toString();
+
                 //
                 tempRef.child("temp").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -249,44 +257,6 @@ public class MonitoringFragment extends Fragment {
 
         return view;
     }
-    /*public void applySettings(){
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("saved", Context.MODE_PRIVATE);
-
-        boolean d = sharedPreferences.getBoolean("dark",false);
-        boolean n = sharedPreferences.getBoolean("note",false);
-        String t = sharedPreferences.getString("size","");
-
-        if(d){enableDarkMode();}
-        if(n){
-            BlindNotifications bl = new BlindNotifications(view.getContext());
-            //this method will allow developer to create message for notification
-            bl.enableNotifications("this is from schedule fragment");
-            //this function will launch the notification.
-            bl.pushNotification();
-        }
-
-        if (t.equals("large")){setTextSize(20);}
-        if (t.equals("medium")){setTextSize(17);}
-        if (t.equals("small")){setTextSize(13);}
-    }
-    public void setTextSize(int size){
-        /*object needs to be put in and replace the existing
-       /* opt.setTextSize(size);
-        submit.setTextSize(size);
-        date.setTextSize(size);
-        time.setTextSize(size);
-        retrieveTV.setTextSize(size);
-    }
-   /* private void enableDarkMode() {
-        /*object needs to be put in and replace the existing
-        view.setBackgroundColor(getResources().getColor(R.color.dark_grey,null));
-       opt.setTextColor(getResources().getColor(R.color.white,null));
-        title.setTextColor(getResources().getColor(R.color.white,null));
-        retrieveTV.setTextColor(getResources().getColor(R.color.white,null));
-        intime.setHintTextColor(getResources().getColor(R.color.white,null));
-        indate.setHintTextColor(getResources().getColor(R.color.white,null));
-    }*/
 
 
 
